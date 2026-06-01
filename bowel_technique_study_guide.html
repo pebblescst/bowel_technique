@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bowel Technique — AST Guidelines Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F0F4F8;
+  --teal: #0B8A85;
+  --teal-light: #0EA5A0;
+  --teal-faint: rgba(14,165,160,0.08);
+  --amber: #B45309;
+  --amber-faint: rgba(180,83,9,0.08);
+  --red: #C0392B;
+  --red-faint: rgba(192,57,43,0.08);
+  --green: #166534;
+  --green-faint: rgba(22,101,52,0.08);
+  --purple: #6D28D9;
+  --purple-faint: rgba(109,40,217,0.08);
+  --text: #1A2636;
+  --text-muted: #4A5C6E;
+  --text-dim: #8A9BB0;
+  --border: rgba(0,0,0,0.09);
+  --border-teal: rgba(14,165,160,0.28);
+  --card-bg: #FFFFFF;
+  --card-hover: #F5FAFA;
+  --serif: 'Instrument Serif', Georgia, serif;
+  --sans: 'Geist', system-ui, sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; }
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, #0B6B67 0%, #0EA5A0 60%, #0D9488 100%);
+  border-bottom: 1px solid var(--border-teal);
+  padding: 3rem 2rem 2.5rem;
+  position: relative; overflow: hidden;
+}
+.header::before { content:''; position:absolute; top:-60px; right:-60px; width:280px; height:280px; background:radial-gradient(circle,rgba(255,255,255,0.15) 0%,transparent 70%); pointer-events:none; }
+.header::after  { content:''; position:absolute; bottom:-40px; left:30%; width:200px; height:200px; background:radial-gradient(circle,rgba(255,255,255,0.07) 0%,transparent 70%); pointer-events:none; }
+.header-inner { max-width:980px; margin:0 auto; position:relative; }
+.header-kicker { font-family:var(--mono); font-size:11px; letter-spacing:2.5px; text-transform:uppercase; color:rgba(255,255,255,0.8); margin-bottom:.75rem; }
+.header h1 { font-family:var(--serif); font-size:clamp(1.9rem,4vw,2.8rem); font-weight:400; color:#fff; line-height:1.15; margin-bottom:.5rem; }
+.header h1 em { font-style:italic; color:rgba(255,255,255,0.85); }
+.header-sub { font-size:14px; color:rgba(255,255,255,0.75); margin-bottom:1.5rem; }
+.header-badges { display:flex; flex-wrap:wrap; gap:8px; }
+.hbadge { font-family:var(--mono); font-size:11px; background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.3); color:#fff; border-radius:4px; padding:3px 10px; }
+
+/* NAV */
+.nav-wrap { background:#fff; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:50; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+.nav-inner { max-width:980px; margin:0 auto; padding:0 2rem; display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; }
+.nav-inner::-webkit-scrollbar { display:none; }
+.nav-tab { font-family:var(--sans); font-size:13px; font-weight:400; color:var(--text-muted); background:transparent; border:none; border-bottom:2px solid transparent; padding:13px 15px; cursor:pointer; white-space:nowrap; transition:color .2s,border-color .2s; display:flex; align-items:center; gap:6px; }
+.nav-tab:hover { color:var(--text); }
+.nav-tab.active { color:var(--teal); border-bottom-color:var(--teal); font-weight:500; }
+.tab-icon { font-size:15px; }
+
+/* CONTENT */
+.content-wrap { max-width:980px; margin:0 auto; padding:2rem 2rem 4rem; }
+.section { display:none; }
+.section.active { display:block; }
+
+/* HEADINGS */
+.section-heading { font-family:var(--serif); font-size:1.75rem; font-weight:400; color:var(--text); margin-bottom:.4rem; }
+.section-sub { font-size:13.5px; color:var(--text-muted); margin-bottom:2rem; line-height:1.5; }
+.sub-label { font-family:var(--mono); font-size:10.5px; letter-spacing:2px; text-transform:uppercase; color:var(--text-dim); margin:1.75rem 0 .85rem; }
+
+/* ALERTS */
+.alert { display:flex; gap:12px; padding:1rem 1.25rem; border-radius:8px; margin-bottom:1.25rem; font-size:14px; line-height:1.6; }
+.alert-icon { font-size:18px; flex-shrink:0; margin-top:1px; }
+.alert-teal  { background:var(--teal-faint);   border:1px solid rgba(14,165,160,0.25);  color:var(--text); }
+.alert-amber { background:var(--amber-faint);  border:1px solid rgba(180,83,9,0.20);    color:var(--text); }
+.alert-red   { background:var(--red-faint);    border:1px solid rgba(192,57,43,0.20);   color:var(--text); }
+.alert-green { background:var(--green-faint);  border:1px solid rgba(22,101,52,0.20);   color:var(--text); }
+.alert-purple{ background:var(--purple-faint); border:1px solid rgba(109,40,217,0.20);  color:var(--text); }
+
+/* CARDS */
+.card-grid { display:grid; gap:1rem; margin-bottom:1.5rem; }
+.card-grid.two   { grid-template-columns:repeat(2,1fr); }
+.card-grid.three { grid-template-columns:repeat(3,1fr); }
+.card { background:var(--card-bg); border:1px solid var(--border); border-radius:10px; padding:1.1rem 1.25rem; transition:background .2s,border-color .2s; box-shadow:0 1px 3px rgba(0,0,0,0.05); }
+.card:hover { background:var(--card-hover); border-color:rgba(14,165,160,0.3); }
+.card-label { font-family:var(--mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--teal); margin-bottom:6px; }
+.card-title { font-size:15px; font-weight:500; color:var(--text); margin-bottom:8px; }
+.card-body  { font-size:13.5px; color:var(--text-muted); line-height:1.6; }
+
+/* STAT ROW */
+.stat-row { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:1.5rem; }
+.stat-box { background:var(--card-bg); border:1px solid var(--border); border-radius:10px; padding:1rem 1.25rem; text-align:center; box-shadow:0 1px 3px rgba(0,0,0,0.05); }
+.stat-val { font-family:var(--mono); font-size:1.5rem; font-weight:500; color:var(--teal); line-height:1; margin-bottom:4px; }
+.stat-lbl { font-size:12px; color:var(--text-muted); line-height:1.4; }
+
+/* DETAIL LIST */
+.detail-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.detail-list li { font-size:13.5px; color:var(--text-muted); padding-left:1.25rem; position:relative; line-height:1.6; }
+.detail-list li::before { content:'›'; position:absolute; left:0; color:var(--teal); font-weight:600; }
+.detail-list li strong { color:var(--text); font-weight:500; }
+
+/* DIVIDER */
+.divider { border:none; border-top:1px solid var(--border); margin:2rem 0; }
+
+/* EXPANDABLE */
+.exp-card { background:var(--card-bg); border:1px solid var(--border); border-radius:10px; margin-bottom:.65rem; overflow:hidden; transition:border-color .2s; box-shadow:0 1px 3px rgba(0,0,0,0.05); }
+.exp-card.open { border-color:rgba(14,165,160,0.35); }
+.exp-head { display:flex; justify-content:space-between; align-items:center; padding:.9rem 1.25rem; cursor:pointer; gap:12px; }
+.exp-head:hover { background:#F0FAF9; }
+.exp-head-left { flex:1; min-width:0; }
+.exp-tag { font-family:var(--mono); font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--teal); margin-bottom:3px; }
+.exp-title { font-size:14.5px; font-weight:500; color:var(--text); }
+.exp-chevron { font-size:12px; color:var(--text-dim); transition:transform .25s; flex-shrink:0; }
+.exp-card.open .exp-chevron { transform:rotate(180deg); color:var(--teal); }
+.exp-body { display:none; padding:0 1.25rem 1.1rem; border-top:1px solid var(--border); }
+.exp-card.open .exp-body { display:block; padding-top:1rem; }
+
+/* KEY POINT */
+.keypoint { background:linear-gradient(135deg,rgba(14,165,160,0.07),rgba(14,165,160,0.03)); border:1px solid rgba(14,165,160,0.25); border-left:3px solid var(--teal); border-radius:0 8px 8px 0; padding:1rem 1.25rem; margin:1rem 0; font-size:14px; color:var(--text); line-height:1.6; }
+.keypoint strong { color:var(--teal); }
+
+/* WARNING BOX */
+.warn-box { background:rgba(192,57,43,0.06); border:1px solid rgba(192,57,43,0.2); border-left:3px solid var(--red); border-radius:0 8px 8px 0; padding:1rem 1.25rem; margin:1rem 0; font-size:14px; color:var(--text); line-height:1.6; }
+.warn-box strong { color:var(--red); }
+
+/* NUMBERED STEPS */
+.steps { display:flex; flex-direction:column; gap:1rem; }
+.step { display:flex; gap:1rem; align-items:flex-start; }
+.step-num { flex-shrink:0; width:28px; height:28px; background:var(--teal-faint); border:1px solid var(--border-teal); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:12px; color:var(--teal); font-weight:500; margin-top:2px; }
+.step-content { flex:1; }
+.step-title { font-size:14px; font-weight:500; color:var(--text); margin-bottom:4px; }
+.step-body  { font-size:13.5px; color:var(--text-muted); line-height:1.6; }
+
+/* TWO-MAYO VISUAL */
+.mayo-visual { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1rem 0; }
+.mayo-box { border-radius:10px; padding:1.1rem 1.25rem; }
+.mayo-clean { background:#F0FAF9; border:2px solid rgba(14,165,160,0.4); }
+.mayo-dirty { background:#FEF3F2; border:2px solid rgba(192,57,43,0.3); }
+.mayo-title { font-weight:600; font-size:14px; margin-bottom:.6rem; display:flex; align-items:center; gap:8px; }
+.mayo-clean .mayo-title { color:var(--teal); }
+.mayo-dirty .mayo-title { color:var(--red); }
+.mayo-items { font-size:13px; color:var(--text-muted); line-height:1.8; }
+
+/* PHASE TIMELINE */
+.timeline { display:flex; align-items:stretch; gap:0; margin:1.25rem 0; }
+.phase { flex:1; padding:.85rem 1rem; text-align:center; font-size:13px; }
+.phase-label { font-family:var(--mono); font-size:10px; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
+.phase-desc { color:var(--text-muted); font-size:12.5px; line-height:1.4; }
+.phase-open  { background:#FEF3F2; border:1px solid rgba(192,57,43,0.2); border-radius:10px 0 0 10px; }
+.phase-open .phase-label { color:var(--red); }
+.phase-open .phase-desc { color:#7f1d1d; }
+.phase-mid   { background:#FFFBEB; border-top:1px solid rgba(180,83,9,0.2); border-bottom:1px solid rgba(180,83,9,0.2); }
+.phase-mid .phase-label { color:var(--amber); }
+.phase-close { background:#F0FAF9; border:1px solid rgba(14,165,160,0.2); border-radius:0 10px 10px 0; }
+.phase-close .phase-label { color:var(--teal); }
+.phase-close .phase-desc { color:#134e4a; }
+.phase-arrow { display:flex; align-items:center; color:var(--text-dim); font-size:18px; padding:0 4px; }
+
+/* COMP TABLE */
+.comp-table { width:100%; border-collapse:collapse; font-size:13.5px; }
+.comp-table th { background:rgba(14,165,160,0.08); color:var(--teal); font-family:var(--mono); font-size:10.5px; letter-spacing:1px; text-transform:uppercase; padding:10px 14px; text-align:left; border-bottom:1px solid rgba(14,165,160,0.2); }
+.comp-table td { padding:10px 14px; color:var(--text-muted); border-bottom:1px solid var(--border); vertical-align:top; line-height:1.6; }
+.comp-table tr:last-child td { border-bottom:none; }
+.comp-num { font-family:var(--mono); font-size:12px; color:var(--teal); margin-right:6px; }
+
+/* GLOSSARY */
+.glossary-grid { display:flex; flex-direction:column; gap:.5rem; }
+.gloss-item { background:var(--card-bg); border:1px solid var(--border); border-radius:8px; padding:.85rem 1.1rem; display:grid; grid-template-columns:220px 1fr; gap:1rem; align-items:start; box-shadow:0 1px 2px rgba(0,0,0,0.04); }
+.gloss-term { font-family:var(--mono); font-size:12px; color:var(--teal); font-weight:500; line-height:1.5; }
+.gloss-def  { font-size:13.5px; color:var(--text-muted); line-height:1.6; }
+
+@media(max-width:640px){
+  .header { padding:2rem 1.25rem; }
+  .content-wrap { padding:1.5rem 1.25rem 3rem; }
+  .card-grid.two,.card-grid.three,.mayo-visual { grid-template-columns:1fr; }
+  .stat-row { grid-template-columns:repeat(2,1fr); }
+  .gloss-item { grid-template-columns:1fr; gap:4px; }
+  .timeline { flex-direction:column; }
+  .phase-open,.phase-close { border-radius:10px; }
+  .phase-arrow { justify-content:center; transform:rotate(90deg); }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-kicker">AST Guidelines for Best Practices · Approved July 1, 2008 · Revised April 14, 2017</div>
+    <h1>Bowel <em>Technique</em></h1>
+    <p class="header-sub">Comprehensive Study Guide — Bowel Isolation Technique, SSI Prevention, Two Mayo Stand Setup, Guidelines I–III &amp; Competency</p>
+    <div class="header-badges">
+      <span class="hbadge">Guidelines I – III</span>
+      <span class="hbadge">SSI Prevention</span>
+      <span class="hbadge">Cross-Contamination</span>
+      <span class="hbadge">Two Mayo Setup</span>
+      <span class="hbadge">GI Procedures</span>
+      <span class="hbadge">Aseptic Technique</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav-inner">
+    <button class="nav-tab active" onclick="showTab('overview',this)"><span class="tab-icon">📊</span>Overview</button>
+    <button class="nav-tab" onclick="showTab('guideline1',this)"><span class="tab-icon">🧤</span>Guideline I</button>
+    <button class="nav-tab" onclick="showTab('guideline23',this)"><span class="tab-icon">📋</span>Guidelines II–III</button>
+    <button class="nav-tab" onclick="showTab('competency',this)"><span class="tab-icon">✅</span>Competency</button>
+    <button class="nav-tab" onclick="showTab('glossary',this)"><span class="tab-icon">📖</span>Glossary</button>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content-wrap">
+
+  <!-- ══════════════════ TAB 1: OVERVIEW ══════════════════ -->
+  <div id="overview" class="section active">
+    <h2 class="section-heading">Overview &amp; Rationale</h2>
+    <p class="section-sub">Why bowel technique matters — SSI data, the scope of the problem, and the evidence supporting routine use.</p>
+
+    <div class="alert alert-teal">
+      <span class="alert-icon">🎯</span>
+      <div><strong>Purpose of Bowel Technique:</strong> To prevent <em>cross-contamination</em> of the surgical abdominal wound by peritoneal microorganisms, thereby reducing the risk of a <em>surgical site infection (SSI)</em>. Applies to all GI procedures — both open and endoscopic — whenever the gastrointestinal tract is entered.</div>
+    </div>
+
+    <p class="sub-label">SSI by the Numbers</p>
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-val">31%</div>
+        <div class="stat-lbl">of all HAIs in hospitalized patients are SSIs — the most common HAI</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">$3.2B</div>
+        <div class="stat-lbl">Annual cost of SSIs in the United States</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">157,500</div>
+        <div class="stat-lbl">Estimated SSIs associated with inpatient surgeries in 2011 (CDC)</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val">3%</div>
+        <div class="stat-lbl">Mortality rate of patients who develop SSIs</div>
+      </div>
+    </div>
+
+    <div class="alert alert-green">
+      <span class="alert-icon">📉</span>
+      <div><strong>Encouraging Trend:</strong> Between 2008 and 2014, there was a <strong>17% decrease in SSIs</strong> related to 10 select procedures, including abdominal hysterectomy and colon surgery — demonstrating that improved technique, including bowel technique, makes a measurable difference.</div>
+    </div>
+
+    <p class="sub-label">Evidence Supporting Bowel Technique</p>
+    <div class="card-grid two">
+      <div class="card">
+        <div class="card-label">Instrument Culture Study</div>
+        <div class="card-title">Contamination Is Consistent &amp; Significant</div>
+        <div class="card-body">A focused study cultured needle holders and tissue forceps used for anastomoses of the small intestine and colon. Results showed <strong>consistent contamination</strong> for both, but a <strong>significantly higher contamination level</strong> for instruments used during colon surgery — underscoring the need for strict bowel technique.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Literature Review &amp; Clinical Audit</div>
+        <div class="card-title">Bowel Technique Is Effective</div>
+        <div class="card-body">A second study found that the use of bowel technique is <strong>effective in preventing SSIs</strong>. The combined results support the practice of bowel technique on <strong>all surgical procedures</strong> involving entry into the GI tract — open and endoscopic.</div>
+      </div>
+    </div>
+
+    <p class="sub-label">Key Definitions at a Glance</p>
+    <div class="card-grid three">
+      <div class="card">
+        <div class="card-label">SSI Classification</div>
+        <div class="card-title">Surgical Site Infection</div>
+        <div class="card-body">Infection occurring within <strong>30 days</strong> of a surgical procedure. Classified as: superficial incisional, deep incisional, or organ/space. SSIs are the <strong>3rd most frequently reported nosocomial infection</strong>.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Bowel Technique</div>
+        <div class="card-title">Also Called…</div>
+        <div class="card-body">Bowel isolation technique · Intraoperative bowel technique · Isolation technique · Clean and dirty scrub technique · Clean closure technique. All refer to the same essential practice of isolating contaminated instruments and supplies from clean ones during GI procedures.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">When It Applies</div>
+        <div class="card-title">All GI Entries</div>
+        <div class="card-body">Bowel technique <strong>begins when the GI tract is opened</strong> and <strong>ends once the tract is closed</strong>. Applies to all procedures involving entry into the gastrointestinal tract — both open and endoscopic procedures.</div>
+      </div>
+    </div>
+
+    <div class="keypoint"><strong>Team Responsibility:</strong> All members of the surgical team should be involved in the process of developing and implementing surgery department policies and procedures for the consistent use of bowel technique.</div>
+  </div>
+
+  <!-- ══════════════════ TAB 2: GUIDELINE I ══════════════════ -->
+  <div id="guideline1" class="section">
+    <h2 class="section-heading">Guideline I — Bowel Technique Principles</h2>
+    <p class="section-sub">The core intraoperative protocol: when technique begins and ends, two Mayo stand setup, sterile field management, gown/glove changes, and clean closure.</p>
+
+    <div class="alert alert-amber">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Guideline I:</strong> The principles of bowel technique should be utilized by the surgical team in order to avoid cross-contamination and reduce the risk of SSI to the patient.</div>
+    </div>
+
+    <p class="sub-label">The Three Phases of Bowel Technique</p>
+    <div class="timeline">
+      <div class="phase phase-open">
+        <div class="phase-label">🔴 GI Tract Opens</div>
+        <div class="phase-desc">Bowel technique begins. Sterile team verbally confirms entry. All items contacting the open GI tract are now contaminated.</div>
+      </div>
+      <div class="phase-arrow">›</div>
+      <div class="phase phase-mid">
+        <div class="phase-label">🟡 Intraoperative</div>
+        <div class="phase-desc">Two Mayo stands active. Contaminated Mayo isolated from clean Mayo &amp; back table. No direct contact with clean field.</div>
+      </div>
+      <div class="phase-arrow">›</div>
+      <div class="phase phase-close">
+        <div class="phase-label">🟢 GI Tract Closed</div>
+        <div class="phase-desc">Bowel technique ends. Gowns &amp; gloves changed. Clean Mayo positioned. Clean closure begins.</div>
+      </div>
+    </div>
+
+    <p class="sub-label">The Two Mayo Stand Setup</p>
+    <div class="mayo-visual">
+      <div class="mayo-box mayo-clean">
+        <div class="mayo-title">🟢 Clean Mayo Stand</div>
+        <div class="mayo-items">
+          Instruments for initial clean incision<br>
+          Dissection into peritoneal cavity<br>
+          Laparotomy drape &amp; towels<br>
+          Sponges (clean)<br>
+          Asepto®<br>
+          Light handles<br>
+          Suction tip<br>
+          Bovie tip<br>
+          <strong>→ Reserved for clean closure after GI tract is closed &amp; gowns/gloves are changed</strong>
+        </div>
+      </div>
+      <div class="mayo-box mayo-dirty">
+        <div class="mayo-title">🔴 Contaminated Mayo Stand</div>
+        <div class="mayo-items">
+          All instruments contacting the open GI tract<br>
+          Sponges used during GI entry<br>
+          Asepto® (once contaminated)<br>
+          Suction tip (once contaminated)<br>
+          Bovie tip (once contaminated)<br>
+          Light handles (once contaminated)<br>
+          Contaminated basin (for surgical specimen)<br>
+          <strong>→ Isolated from clean Mayo and back table at all times</strong>
+        </div>
+      </div>
+    </div>
+
+    <p class="sub-label">Intraoperative Protocol — Step by Step</p>
+
+    <div class="exp-card open">
+      <div class="exp-head" onclick="toggleExp(this)">
+        <div class="exp-head-left">
+          <div class="exp-tag">Step A — GI Tract Opens</div>
+          <div class="exp-title">Verbal Confirmation &amp; Contamination Begins</div>
+        </div>
+        <span class="exp-chevron">▼</span>
+      </div>
+      <div class="exp-body">
+        <ul class="detail-list">
+          <li>The sterile surgical team must <strong>verbally confirm</strong> that the GI tract is being opened/entered</li>
+          <li><strong>All items</strong> that contact an open GI tract — or are handled with gloved hands that have contacted it — are considered contaminated. This includes: instruments, sponges, suction tip, Asepto®, light handles, Bovie tip, gloves, and gowns</li>
+          <li>The CST should ensure the <strong>contaminated Mayo is isolated</strong> from the clean Mayo and back table immediately</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-head" onclick="toggleExp(this)">
+        <div class="exp-head-left">
+          <div class="exp-tag">Step B–C — During GI Entry</div>
+          <div class="exp-title">Maintaining Separation of Clean and Contaminated Fields</div>
+        </div>
+        <span class="exp-chevron">▼</span>
+      </div>
+      <div class="exp-body">
+        <ul class="detail-list">
+          <li>Contaminated Mayo must remain <strong>isolated from the clean Mayo and sterile back table</strong> at all times</li>
+          <li>The CST and all sterile team members must <strong>not directly handle</strong> supplies and instruments on the clean Mayo or back table until the GI tract is closed and gowns/gloves are changed</li>
+        </ul>
+        <div class="keypoint"><strong>Accessing the Back Table:</strong> If the CST needs an additional instrument or supply from the back table during the contaminated phase, place a <strong>sponge stick inside a small basin</strong> (kidney or round) and use it to retrieve the item. Touch only the ring-handles of the sponge stick and return it to the basin for possible further use.</div>
+      </div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-head" onclick="toggleExp(this)">
+        <div class="exp-head-left">
+          <div class="exp-tag">Step D — Wound Draping</div>
+          <div class="exp-title">Sterile Towels &amp; Wound Protector Around Incision</div>
+        </div>
+        <span class="exp-chevron">▼</span>
+      </div>
+      <div class="exp-body">
+        <ul class="detail-list">
+          <li><strong>Sterile towels should be placed around the surgical incision site prior to the GI tract being opened</strong> to aid in reducing cross-contamination and preventing SSI from GI tract spillage</li>
+          <li>According to surgeon's preference, a <strong>polyethylene wound protector</strong> may also be used</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-head" onclick="toggleExp(this)">
+        <div class="exp-head-left">
+          <div class="exp-tag">Step E — GI Tract Closes</div>
+          <div class="exp-title">Clearing the Contaminated Items Before Gown/Glove Change</div>
+        </div>
+        <span class="exp-chevron">▼</span>
+      </div>
+      <div class="exp-body">
+        <p style="font-size:13.5px;color:var(--text-muted);margin-bottom:.75rem;">Once GI tract closure is complete, the CST performs the following in sequence:</p>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Remove contaminated items from the incision area</div><div class="step-body">Remove Asepto®, suction tip, Bovie tip, and light handles and place with contaminated instruments on the contaminated Mayo. Remove sterile towels or polyethylene wound protector from around the incision.</div></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Discard contaminated sponges</div><div class="step-body">Throw contaminated sponges into the sponge bucket.</div></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Move the contaminated Mayo</div><div class="step-body">Move the contaminated Mayo <strong>away from the sterile field but within sight of the CST</strong> so instrument and sharps counts can be completed with the circulating person.</div></div></div>
+          <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Hand off the specimen basin</div><div class="step-body">The contaminated basin containing the surgical specimen is handed to the circulator.</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-head" onclick="toggleExp(this)">
+        <div class="exp-head-left">
+          <div class="exp-tag">Step F — Gown &amp; Glove Change</div>
+          <div class="exp-title">Entire Sterile Team Changes — CST First</div>
+        </div>
+        <span class="exp-chevron">▼</span>
+      </div>
+      <div class="exp-body">
+        <div class="alert alert-amber">
+          <span class="alert-icon">🥼</span>
+          <div><strong>Order Matters:</strong> After closure of the GI tract and removal of contaminated items, the entire sterile surgical team changes gowns and gloves. The <strong>CST changes first</strong>, then assists the other sterile team members in donning new sterile gowns and gloves.</div>
+        </div>
+        <ul class="detail-list">
+          <li>Change occurs <strong>after</strong> removal of contaminated items and after GI tract closure</li>
+          <li>CST changes his/her gown and gloves <strong>first</strong></li>
+          <li>CST then <strong>assists other sterile team members</strong> in donning new sterile gowns and gloves</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-head" onclick="toggleExp(this)">
+        <div class="exp-head-left">
+          <div class="exp-tag">Step G — Clean Closure Setup</div>
+          <div class="exp-title">Restoring the Sterile Field After Gown/Glove Change</div>
+        </div>
+        <span class="exp-chevron">▼</span>
+      </div>
+      <div class="exp-body">
+        <p style="font-size:13.5px;color:var(--text-muted);margin-bottom:.75rem;">After changing gowns and gloves, the CST completes the following to prepare for clean closure:</p>
+        <ul class="detail-list">
+          <li><strong>New sterile laparotomy drape</strong> placed over the contaminated drape, <em>or</em> incision site squared off with new towels placed over the contaminated drape (per surgeon's preference)</li>
+          <li><strong>New suction tip</strong> and <strong>new Bovie tip</strong> placed</li>
+          <li><strong>Clean sponges</strong> brought onto the sterile field</li>
+          <li><strong>New Asepto®</strong> obtained</li>
+          <li><strong>New light handles</strong> positioned</li>
+          <li><strong>Clean Mayo</strong> positioned for clean closure</li>
+        </ul>
+        <div class="keypoint"><strong>Clean Closure Technique:</strong> The use of clean instruments (needle holders, forceps, skin stapler, etc.) that were isolated from contaminated instruments during the GI procedure — used to close the layers of the surgical wound.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ TAB 3: GUIDELINES II–III ══════════════════ -->
+  <div id="guideline23" class="section">
+    <h2 class="section-heading">Guidelines II &amp; III</h2>
+    <p class="section-sub">Annual P&amp;P review requirements and continuing education standards for CSTs in bowel technique.</p>
+
+    <!-- Guideline II -->
+    <div class="exp-card open">
+      <div class="exp-head" onclick="toggleExp(this)">
+        <div class="exp-head-left">
+          <div class="exp-tag">Guideline II</div>
+          <div class="exp-title">Annual Review of Bowel Technique Policies &amp; Procedures</div>
+        </div>
+        <span class="exp-chevron">▼</span>
+      </div>
+      <div class="exp-body">
+        <ul class="detail-list">
+          <li>The surgery department must review all bowel technique <strong>P&amp;Ps on an annual basis</strong></li>
+          <li>Review must include a multidisciplinary group: <strong>CSTs, surgeons, RNs, risk management, and the infection control officer</strong></li>
+          <li>The department must <strong>document</strong>: when P&amp;Ps were reviewed, any revisions made, and who participated</li>
+          <li>All CSTs must be <strong>familiar with current P&amp;Ps</strong> for bowel technique</li>
+          <li><strong>New employee orientation</strong> must include reviewing the bowel technique P&amp;Ps</li>
+        </ul>
+        <div class="keypoint"><strong>Standardized Routine:</strong> The surgery department should establish a <strong>standardized routine for the use of bowel technique</strong> that all CSTs follow for every GI procedure. A consistent, standardized routine used by all CSTs is essential to reducing SSIs.</div>
+      </div>
+    </div>
+
+    <!-- Guideline III -->
+    <div class="exp-card">
+      <div class="exp-head" onclick="toggleExp(this)">
+        <div class="exp-head-left">
+          <div class="exp-tag">Guideline III</div>
+          <div class="exp-title">Continuing Education for CSTs on Bowel Technique</div>
+        </div>
+        <span class="exp-chevron">▼</span>
+      </div>
+      <div class="exp-body">
+        <div class="alert alert-teal">
+          <span class="alert-icon">🎓</span>
+          <div>CE on bowel technique is essential to <strong>preventing SSIs</strong> and emphasizing the principles of asepsis and sterile technique. CE must be based on <strong>andragogy</strong> (adult learning theory — Malcolm Knowles): relevant, practical, and learner-active.</div>
+        </div>
+
+        <p class="sub-label">Recommended Instructional Methods</p>
+        <div class="card-grid two">
+          <div class="card">
+            <div class="card-label">Lecture-Based Methods</div>
+            <div class="card-title">Engage the Learner</div>
+            <div class="card-body">
+              <ul class="detail-list">
+                <li>Case study presentations for discussion</li>
+                <li>Audience discussion with suggestions for improving and reinforcing bowel technique</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-label">Other Proven Methods</div>
+            <div class="card-title">Varied Instruction</div>
+            <div class="card-body">
+              <ul class="detail-list">
+                <li>Interactive training videos</li>
+                <li>Computerized training modules</li>
+                <li>Teleconferences</li>
+                <li><strong>Simulated practice</strong> of bowel technique prior to implementing in a surgical procedure</li>
+                <li>Education in multiple languages if necessary</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="keypoint"><strong>Delivery Format:</strong> CE should be delivered in <strong>short modules over time</strong> — not in a single lengthy session. Programs must be periodically evaluated for effectiveness, including feedback from surgery department personnel.</div>
+
+        <p class="sub-label">CE Records — 3-Year Minimum Retention</p>
+        <div class="card-grid two">
+          <div class="card">
+            <div class="card-label">Required Documentation</div>
+            <div class="card-title">What Must Be Recorded</div>
+            <div class="card-body">
+              <ul class="detail-list">
+                <li>Dates of each continuing education session</li>
+                <li>Names and job titles of employees who completed CE</li>
+                <li>Synopsis of each CE session provided</li>
+                <li>Names, credentials, and experience of instructors</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-label">Retention Period</div>
+            <div class="card-title">Minimum 3 Years</div>
+            <div class="card-body">All education records must be maintained for a minimum of <strong>three years</strong> by the surgery department. This is a regulatory and accreditation requirement.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ TAB 4: COMPETENCY ══════════════════ -->
+  <div id="competency" class="section">
+    <h2 class="section-heading">CST Competency Statements</h2>
+    <p class="section-sub">Formal competency requirements and measurable criteria for Certified Surgical Technologists in bowel technique and aseptic principles.</p>
+
+    <div class="alert alert-teal">
+      <span class="alert-icon">🏅</span>
+      <div><strong>CST® is a registered trademark of the National Board of Surgical Technology &amp; Surgical Assisting (NBSTSA).</strong> Competencies align with the Core Curriculum for Surgical Technology and CAAHEP/ABHES accreditation standards.</div>
+    </div>
+
+    <table class="comp-table">
+      <thead><tr><th>Competency Statement</th><th>Measurable Criteria</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="comp-num">1.</span>CSTs have knowledge of the <strong>principles of asepsis and sterile technique</strong> in order to reduce the risk of SSI.</td>
+          <td>
+            <ul class="detail-list">
+              <li>Educational standards as established by the Core Curriculum for Surgical Technology</li>
+              <li>The didactic subjects of the principles of asepsis and sterile technique are included in CAAHEP- and ABHES-accredited surgical technology programs</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="comp-num">2.</span>CSTs can <strong>participate in the review and revision of surgery department bowel technique P&amp;Ps</strong> since they are experts in the principles of asepsis.</td>
+          <td>
+            <ul class="detail-list">
+              <li>Students demonstrate knowledge of the principles of asepsis and sterile technique in the lab/mock OR and during clinical rotation</li>
+              <li>As practitioners, CSTs implement the principles of asepsis and sterile technique including, when necessary, bowel technique</li>
+              <li>CSTs complete continuing education to remain current in their knowledge of asepsis, sterile technique, and up-to-date techniques to prevent SSIs and cross-contamination — including annual review of surgery department P&amp;Ps</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr style="border:none;border-top:1px solid var(--border);margin:2rem 0;">
+    <p class="sub-label">Key Facts to Memorize</p>
+    <div class="card-grid three">
+      <div class="card">
+        <div class="card-label">When It Starts</div>
+        <div class="card-title">GI Tract Is Opened</div>
+        <div class="card-body">Bowel technique begins the moment the GI tract is opened/entered. The sterile team verbally confirms this event.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">When It Ends</div>
+        <div class="card-title">GI Tract Is Closed</div>
+        <div class="card-body">Bowel technique ends once the GI tract is closed. Only then can gowns and gloves be changed and clean closure proceed.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Who Changes First</div>
+        <div class="card-title">The CST</div>
+        <div class="card-body">The CST is always the <strong>first</strong> person to change gown and gloves after GI closure, then assists all other sterile team members.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Back Table Access</div>
+        <div class="card-title">Sponge Stick in Basin</div>
+        <div class="card-body">Use a sponge stick inside a small basin (kidney or round) to retrieve items from the back table. Touch only the ring-handles. Never directly handle the clean back table during the contaminated phase.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Contaminated Mayo</div>
+        <div class="card-title">Isolated but In Sight</div>
+        <div class="card-body">After GI closure, the contaminated Mayo is moved away from the sterile field but must remain <strong>within sight</strong> of the CST so instrument and sharps counts can be completed.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Wound Protection</div>
+        <div class="card-title">Before Opening — Not After</div>
+        <div class="card-body">Sterile towels (and optional polyethylene wound protector) must be placed <strong>before</strong> the GI tract is opened — not after spillage has already occurred.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════ TAB 5: GLOSSARY ══════════════════ -->
+  <div id="glossary" class="section">
+    <h2 class="section-heading">Key Terms &amp; Glossary</h2>
+    <p class="section-sub">Definitions as established in the AST Guidelines for Best Practices in Bowel Technique (Approved 2008, Revised 2017).</p>
+
+    <div class="glossary-grid">
+      <div class="gloss-item">
+        <div class="gloss-term">Asepsis</div>
+        <div class="gloss-def">Absence of bacteria, viruses, and other microbes. The fundamental goal of sterile technique in the perioperative setting.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Bowel Technique</div>
+        <div class="gloss-def">Techniques used during gastrointestinal procedures to isolate contaminated instruments and supplies from the clean ones, to prevent the patient from acquiring a postoperative surgical site infection. Also called: bowel isolation technique, intraoperative bowel technique, isolation technique, clean and dirty scrub technique.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Clean Closure Technique</div>
+        <div class="gloss-def">Use of clean instruments — e.g., needle holders, forceps, skin stapler — that were isolated from contaminated instruments used during a GI procedure, to close the layers of the surgical wound after gown and glove change.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Clean and Dirty Scrub Technique</div>
+        <div class="gloss-def">See Bowel Technique. An older term for the same practice of maintaining two separate instrument setups — one clean, one contaminated — during GI procedures.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Cross-Contamination</div>
+        <div class="gloss-def">The unintentional transfer of bacteria and/or other microbes from healthcare personnel to the patient, or when the patient or healthcare personnel come into contact with a contaminated fomite. Bowel technique specifically aims to prevent this.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Healthcare-Associated Infection (HAI)</div>
+        <div class="gloss-def">Infections that patients acquire during the course of receiving treatment for other conditions within a healthcare setting. SSIs are the most common HAI, accounting for 31% of all HAIs in hospitalized patients.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Principles of Asepsis</div>
+        <div class="gloss-def">Practices applied by surgical team members to prevent the patient from acquiring a postoperative surgical site infection. The basis of all sterile technique in the OR.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Sterile Technique</div>
+        <div class="gloss-def">The techniques used to put the principles of asepsis into practice. Includes proper gowning, gloving, draping, instrument handling, and bowel technique during GI procedures.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Surgical Site Infection (SSI)</div>
+        <div class="gloss-def">An infection that occurs within 30 days of a surgical procedure. Classified as: superficial incisional, deep incisional, or organ/space. SSIs are the 3rd most frequently reported nosocomial infection, with a 3% mortality rate and a cost of $3.2 billion per year.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Andragogy</div>
+        <div class="gloss-def">The theory of adult learning developed by Malcolm Knowles. Adults learn best when information is relevant to their work experience, practical rather than academic, and when the learner is actively involved. Required basis for CST continuing education per Guideline III.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Polyethylene Wound Protector</div>
+        <div class="gloss-def">A disposable device placed at the surgical incision prior to opening the GI tract to further reduce the risk of wound contamination from GI spillage. Used per surgeon's preference in addition to sterile towels.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">HDO (Healthcare Delivery Organization)</div>
+        <div class="gloss-def">Any healthcare facility or organization responsible for developing, approving, and implementing surgery department policies and procedures — including those for bowel technique — per their own protocols.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end content-wrap -->
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+function toggleExp(head) {
+  head.closest('.exp-card').classList.toggle('open');
+}
+</script>
+</body>
+</html>
